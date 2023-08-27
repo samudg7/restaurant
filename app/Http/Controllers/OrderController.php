@@ -7,6 +7,9 @@ use App\Models\Product;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Log;
+
+
 class OrderController extends Controller
 {
     public function store(Request $request)
@@ -34,6 +37,8 @@ class OrderController extends Controller
 
             $order->items()->save($orderItem);
         }
+
+        Log::info('Order created', ['order_id' => $order->id]);
 
         return response()->json(['message' => 'Order created successfully'], 201);
     }
@@ -65,6 +70,8 @@ class OrderController extends Controller
 
             $order->items()->save($orderItem);
         }
+
+        Log::info('Order updated', ['order_id' => $order->id]);
 
         return response()->json(['message' => 'Order updated successfully'], 200);
     }
